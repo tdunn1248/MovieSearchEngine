@@ -1,0 +1,28 @@
+{
+  "name": "moviesearchengine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdunn1248/MovieSearchEngine.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tdunn1248/MovieSearchEngine/issues"
+  },
+  "homepage": "https://github.com/tdunn1248/MovieSearchEngine#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cookie-session": "^2.0.0-beta.2",
+    "express": "^4.15.3",
+    "nodemon": "^1.11.0",
+    "pg-promise": "^6.3.6",
+    "pug": "^2.0.0-rc.2"
+  }
+}
