@@ -9,9 +9,13 @@ include header
     .row
       .col-lg-6
         .input-group
-          input.form-control(type='text', placeholder='Search for...')
+          input.form-control.movieTitle(type='text', placeholder='Search for...')
           span.input-group-btn
-            button.btn.btn-secondary(type='button') Go!
+            button.btn.btn-secondary(type='button', onclick="movieSearch()") Go!
+
+    .movie-list-container
+      ul#movie_list
+
 
 
 include footer
