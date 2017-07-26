@@ -1,4 +1,10 @@
+html {
+  font-family: Verdana;
+}
+
 body {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -17,6 +23,11 @@ nav {
   align-items: center;
   flex-grow: 0 auto;
   background-color: #646464;
+  box-shadow: 2px 2px 5px #888888;
+}
+
+.nav {
+  margin-right: 2em;
 }
 
 .nav-link {
@@ -36,15 +47,33 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 80vw;
   height: 10vh;
 }
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: .5em;
+}
+
+.input-group {
+  align-items: center;
+}
+.btn-primary {
+  background-color: gray;
+  margin-top: 1em;
+  border: 0;
+}
+
 
 footer {
   width: 100vw;
   height: 10vh;
   display: flex;
-  flex-grow: 0 auto;
+  flex-grow: 0;
   justify-content: center;
   align-items: center;
   background-color: #646464;

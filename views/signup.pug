@@ -1,0 +1,22 @@
+include head
+
+include header
+
+body
+  .main-container
+    .row
+      h1.display-4.m-b-2 Sign Up
+      form(method='POST' action='/signup')
+        div.form-group
+          label(for='email') Email
+          input.form-control(type='text' id='email' placeholder='email' name='email')
+        div.form-group
+          label(for='password') Password
+          input.form-control(type='password' id='password' placeholder='password' name='password')
+        div.form-group
+          label(for='confirmPassword') Confirm Password
+          input.form-control(type='password' id='confirmPassword' placeholder='confirm password' name='confirmPassword')
+          button.btn.btn-primary(type='submit') Login
+        h6 #{error}
+
+include footer
