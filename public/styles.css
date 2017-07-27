@@ -28,6 +28,7 @@ nav {
 
 .nav {
   margin-right: 2em;
+  flex-direction: row;
 }
 
 .nav-link {
@@ -38,6 +39,7 @@ nav {
 .main-container {
   display: flex;
   flex-direction: column;
+  background-color: #e9e9e9;
   flex-grow: 1;
   justify-content: center;
   align-items: center;
@@ -70,6 +72,7 @@ nav {
 
 ul {
   padding: 0;
+  margin-top: 1em;
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -82,7 +85,7 @@ ul {
 .movie-list-item {
   padding: 1em;
   margin-bottom: 1em;
-  background-color: #e9e9e9;
+  background-color: #d1d1d1;
   border-radius: 4px;
 }
 

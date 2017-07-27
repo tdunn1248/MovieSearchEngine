@@ -2,11 +2,14 @@ const express = require('express')
 const pug = require('pug')
 const path = require('path')
 const bodyParser = require('body-parser')
+const cookieSession = require('cookie-session')
+const bcrypt = require('bcrypt')
+
 const db = require('./models/config')
 const {signUp, login} = require('./models/queries')
 const {checkUserSession} = require('./models/user')
-const cookieSession = require('cookie-session')
-const bcrypt = require('bcrypt')
+const getUserSearchHistory = require('./models/searchHistory')
+
 const app = express()
 
 const {movies} = require('./cheerio_functions/cheerio')
@@ -26,7 +29,7 @@ app.use(cookieSession({
 }))
 
 app.get('/', (request, response) => {
-  response.render('home')
+  response.render('index')
 })
 
 app.route('/login')
@@ -43,8 +46,11 @@ app.route('/login')
             if(!res) {
               response.render('login', {error: 'Incorrect email or password'})
             } else {
-              request.session.user = userInfo.email
-              response.render('loggedInHome', {results: [], userName: request.session.user})
+              request.session.user = {
+                email: userInfo.email,
+                id: userInfo.id,
+              }
+              response.redirect('/home')
             }
           }).catch(e => console.log(e))
       }).catch(e => console.log(e))
@@ -59,11 +65,18 @@ app.route('/signup')
       email: request.body.email,
       password: request.body.password
     }
+
     bcrypt.hash(newUser.password, 10, function(err, hash) {
       signUp(newUser.email, hash)
+        .then(newUser => {
+          request.session.user = {
+            email: newUser.email,
+            id: newUser.id,
+          }
+          response.render('home', {results: [], userName: newUser.email} )
+        })
+        .catch(console.error)
     })
-    request.session.user = newUser.email
-    response.render('loggedInHome', {results: [], userName: request.session.user} )
   })
 
 app.get('/signout', (request, response) => {
@@ -71,7 +84,6 @@ app.get('/signout', (request, response) => {
   request.session = null
   response.redirect('/')
 })
-// ==========================================
 
 app.post('/search/movies', (request, response) => {
   const {title} = request.body
@@ -85,12 +97,20 @@ app.post('/search/movies', (request, response) => {
 app.get('/results', (request, response) => {
   response.render('results')
 })
-// ==========================================
 
 app.use(checkUserSession)
 
-app.get('/loggedInHome', (request, response) => {
-  response.render('loggedInHome', {userName: request.session.user})
+app.get('/home', (request, response) => {
+  const {user} = request.session
+
+  console.log(user);
+
+  getUserSearchHistory(user.id)
+    .then(info => {
+      console.log('Search Term', info);
+
+      response.status(200).render('home', {userName: user.email, searchTerm: info.search_term})
+    })
 })
 
 app.listen(port, () => console.log('Runnin on port: ' + port))
